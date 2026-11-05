@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA | Learn Create Innovate</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#07111f;color:#eaf4ff;font-family:Arial,sans-serif}
+header{background:#0c1b30;padding:16px;border-bottom:1px solid #16466b;position:sticky;top:0;z-index:10}
+.logo{font-size:25px;font-weight:bold;color:#31d8ff}
+.logo span{color:white}
+header p{margin:5px 0;color:#9cb4ca;font-size:12px}
+nav{display:flex;gap:8px;overflow-x:auto;margin-top:12px}
+button{border:1px solid #1b567d;background:#102a43;color:white;padding:10px 14px;border-radius:9px;cursor:pointer}
+button:hover{background:#087da5}
+input,select,textarea{width:100%;padding:12px;margin:7px 0;background:#0b1c2e;color:white;border:1px solid #245273;border-radius:8px;outline:none}
+textarea{min-height:100px;resize:vertical}
+main{max-width:1100px;margin:auto;padding:18px}
+.hero{padding:35px 20px;text-align:center;background:linear-gradient(135deg,#102d4b,#073d58);border:1px solid #17638a;border-radius:18px;margin-bottom:20px}
+.hero h1{font-size:34px;margin:5px}
+.hero p{color:#b8d8ed}
+h2{color:#39d8ff}
+h3{color:#a9eaff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:#0d2035;border:1px solid #17496b;padding:18px;border-radius:13px}
+.card h3{margin-top:0}
+.card p{color:#b4c9dc;line-height:1.5}
+.zone{display:none}
+.zone.active{display:block}
+.home{display:block}
+.home.hide{display:none}
+.back{margin:10px 0}
+.small{font-size:13px;color:#9fb7cc}
+.result{background:#102b3c;border-left:4px solid #24c8ef;padding:12px;border-radius:7px;margin:10px 0}
+.correct{border-left-color:#36d98b}
+.wrong{border-left-color:#ff6868}
+.option{display:block;width:100%;text-align:left;margin:8px 0}
+.search-box{max-width:650px;margin:20px auto}
+.search-box input{padding:15px;border:1px solid #24c8ef;font-size:16px}
+#searchMessage{text-align:center}
+footer{text-align:center;color:#7894aa;padding:25px}
+hr{border:0;border-top:1px solid #1d3e59;margin:20px 0}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">NEXORA<span>.</span></div>
+ <p>LEARN. CREATE. INNOVATE.</p>
+ <nav>
+  <button onclick="goHome()">Home</button>
+  <button onclick="openZone('education')">Education</button>
+  <button onclick="openZone('engineering')">Engineering</button>
+  <button onclick="openZone('developer')">Developer</button>
+  <button onclick="openZone('cyber')">Cyber</button>
+  <button onclick="openZone('ai')">AI</button>
+  <button onclick="openZone('creator')">Creator</button>
+  <button onclick="openZone('tools')">Daily Tools</button>
+  <button onclick="openZone('knowledge')">Knowledge</button>
+ </nav>
+</header>
+
+<main>
+
+<section id="home" class="home">
+ <div class="hero">
+  <h1>Welcome to NEXORA</h1>
+  <h3>Learn. Create. Innovate.</h3>
+  <p>Your learning and technology platform.</p>
+  <button onclick="openZone('education')">Start Learning</button>
+ </div>
+
+ <h2>Explore All Zones</h2>
+
+ <div class="search-box">
+  <input type="search" id="zoneSearch" placeholder="🔍 Search zones, tools, subjects..." oninput="searchZones()">
+  <p id="searchMessage" class="small"></p>
+ </div>
+
+ <div class="grid" id="zoneGrid">
+  <div class="card" data-search="education zone study branches semester mechanical electrical civil computer science notes formulas mcq quiz">
+   <h3>📚 Education Zone</h3><p>Branches, semesters, subjects, notes and quizzes.</p><button onclick="openZone('education')">Open Zone</button>
+  </div>
+  <div class="card" data-search="engineering zone mechanical force power density formulas cad cam cnc workshop">
+   <h3>⚙️ Engineering Zone</h3><p>Engineering formulas and useful calculators.</p><button onclick="openZone('engineering')">Open Zone</button>
+  </div>
+  <div class="card" data-search="developer zone html css javascript python coding programming website playground">
+   <h3>💻 Developer Zone</h3><p>Learn HTML, CSS and JavaScript.</p><button onclick="openZone('developer')">Open Zone</button>
+  </div>
+  <div class="card" data-search="cyber zone cybersecurity networking linux safety ethical hacking">
+   <h3>🛡️ Cyber Zone</h3><p>Cybersecurity basics and safe learning.</p><button onclick="openZone('cyber')">Open Zone</button>
+  </div>
+  <div class="card" data-search="ai zone artificial intelligence study helper summarizer text">
+   <h3>🤖 AI Zone</h3><p>Study helper and text summarizer.</p><button onclick="openZone('ai')">Open Zone</button>
+  </div>
+  <div class="card" data-search="creator zone video editing caption title hashtags reels">
+   <h3>🎬 Creator Zone</h3><p>Captions and video title ideas.</p><button onclick="openZone('creator')">Open Zone</button>
+  </div>
+  <div class="card" data-search="daily tools calculator age converter text counter stopwatch length">
+   <h3>🧰 Daily Tools</h3><p>Calculator, converter, age and text tools.</p><button onclick="openZone('tools')">Open Zone</button>
+  </div>
+  <div class="card" data-search="knowledge zone general knowledge science facts internet computer">
+   <h3>🌍 Knowledge Zone</h3><p>General knowledge and science facts.</p><button onclick="openZone('knowledge')">Open Zone</button>
+  </div>
+ </div>
+
+ <hr>
+ <h2>About NEXORA</h2>
+ <p class="small">NEXORA is a learning project for students and curious minds. Educational content is sample content and should be checked against the actual syllabus.</p>
+ <h2>Founder</h2>
+ <p class="small">Created by Umesh Jagat</p>
+</section>
+
+<!-- EDUCATION ZONE -->
+<section id="education" class="zone">
+ <button class="back" onclick="goHome()">← Home</button>
+ <h2>📚 Education Zone</h2>
+ <p class="small">Choose your branch, semester and subject.</p>
+ <div id="eduBranches"><h3>Select Branch</h3><div class="grid" id="branchList"></div></div>
+ <div id="eduSemesters" style="display:none"><button onclick="eduBackBranches()">← Branches</button><h3 id="branchHeading"></h3><div class="grid" id="semesterList"></div></div>
+ <div id="eduSubjects" style="display:none"><button onclick="eduBackSemesters()">← Semesters</button><h3 id="semesterHeading"></h3><div class="grid" id="subjectList"></div></div>
+ <div id="eduSubjectPage" style="display:none">
+  <button onclick="eduBackSubjects()">← Subjects</button><h3 id="subjectHeading"></h3>
+  <div class="card"><h3>Study Notes</h3><p id="subjectNotes"></p><h3>Important Formula</h3><p id="subjectFormula"></p></div>
+  <br><button onclick="startEduQuiz()">Start MCQ Quiz</button>
+ </div>
+ <div id="eduQuiz" style="display:none">
+  <button onclick="eduBackSubjects()">← Subjects</button>
+  <h3 id="quizTitle">Quiz</h3><p id="quizProgress"></p>
+  <div class="card"><h3 id="quizQuestion"></h3><div id="quizOptions"></div><div id="quizFeedback"></div><button id="nextQuestion" onclick="nextEduQuestion()" style="display:none">Next Question →</button></div>
+  <div id="quizFinish" style="display:none" class="result"><h3>Quiz Completed!</h3><p id="quizScore"></p><button onclick="startEduQuiz()">Try Again</button><button onclick="newEduQuiz()">New Questions</button></div>
+ </div>
+</section>
+
+<!-- ENGINEERING ZONE -->
+<section id="engineering" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>⚙️ Engineering Zone</h2>
+ <div class="grid">
+  <div class="card"><h3>Force Calculator</h3><p class="small">Force = Mass × Acceleration</p><input id="forceMass" type="number" placeholder="Mass (kg)"><input id="forceAcc" type="number" placeholder="Acceleration (m/s²)"><button onclick="calcForce()">Calculate</button><p id="forceResult" class="result"></p></div>
+  <div class="card"><h3>Power Calculator</h3><p class="small">Power = Work ÷ Time</p><input id="powerWork" type="number" placeholder="Work (Joule)"><input id="powerTime" type="number" placeholder="Time (seconds)"><button onclick="calcPower()">Calculate</button><p id="powerResult" class="result"></p></div>
+  <div class="card"><h3>Density Calculator</h3><p class="small">Density = Mass ÷ Volume</p><input id="densityMass" type="number" placeholder="Mass (kg)"><input id="densityVol" type="number" placeholder="Volume (m³)"><button onclick="calcDensity()">Calculate</button><p id="densityResult" class="result"></p></div>
+ </div>
+ <h3>Mechanical Engineering Formulas</h3>
+ <div class="card"><p>Speed = Distance ÷ Time</p><p>Work = Force × Distance</p><p>Pressure = Force ÷ Area</p><p>Stress = Force ÷ Area</p><p>Strain = Change in length ÷ Original length</p><p>Efficiency = (Output ÷ Input) × 100</p></div>
+ <h3>Learn About</h3>
+ <div class="grid"><div class="card"><h3>CAD</h3><p>Computer-Aided Design: creating and modifying digital designs.</p></div><div class="card"><h3>CAM</h3><p>Computer-Aided Manufacturing: computer systems supporting manufacturing.</p></div><div class="card"><h3>CNC</h3><p>Computer Numerical Control: machines controlled by programmed instructions.</p></div><div class="card"><h3>Workshop</h3><p>Introduction to tools, machines and workshop safety.</p></div></div>
+</section>
+
+<!-- DEVELOPER ZONE -->
+<section id="developer" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>💻 Developer Zone</h2>
+ <div class="grid">
+  <div class="card"><h3>HTML</h3><p>HTML creates the structure of a web page.</p><code>&lt;h1&gt;Hello World&lt;/h1&gt;</code></div>
+  <div class="card"><h3>CSS</h3><p>CSS controls design and layout.</p><code>h1 { color: cyan; }</code></div>
+  <div class="card"><h3>JavaScript</h3><p>JavaScript adds interactivity.</p><code>alert("Hello");</code></div>
+  <div class="card"><h3>Python</h3><p>A beginner-friendly programming language.</p><code>print("Hello World")</code></div>
+ </div>
+ <h3>HTML / CSS / JS Playground</h3>
+ <textarea id="playCode" placeholder="Write HTML, CSS and JavaScript here...">&lt;h1&gt;Hello NEXORA!&lt;/h1&gt;
+&lt;p&gt;My first web page.&lt;/p&gt;
+&lt;button onclick="alert('Working!')"&gt;Click Me&lt;/button&gt;
+&lt;style&gt;body{font-family:Arial;color:#087da5}&lt;/style&gt;</textarea>
+ <button onclick="runPlayground()">Run Code</button>
+ <iframe id="playOutput" title="Code output" sandbox="allow-scripts" style="width:100%;height:230px;background:white;border:1px solid #245273;border-radius:10px;margin-top:12px"></iframe>
+</section>
+
+<!-- CYBER ZONE -->
+<section id="cyber" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>🛡️ Cyber Zone</h2>
+ <p class="small">Learn cybersecurity ethically. Practise only on systems you own or have permission to test.</p>
+ <div class="grid"><div class="card"><h3>Networking</h3><p>Learn IP addresses, DNS, ports, routers and protocols.</p></div><div class="card"><h3>Linux Basics</h3><p>Learn files, folders, permissions and terminal commands.</p></div><div class="card"><h3>Cyber Safety</h3><p>Use strong passwords, updates and multi-factor authentication.</p></div><div class="card"><h3>Ethical Practice</h3><p>Use legal training labs and authorised practice environments.</p></div></div>
+ <h3>Cyber Safety Quiz</h3><div class="card"><p id="cyberQuestion"></p><div id="cyberOptions"></div><p id="cyberFeedback"></p><button onclick="nextCyber()">Next Question</button></div>
+</section>
+
+<!-- AI ZONE -->
+<section id="ai" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>🤖 AI Study Helper</h2><p class="small">Basic offline text helper, not a real AI model.</p>
+ <div class="card"><h3>Text Summarizer</h3><textarea id="aiInput" placeholder="Paste your study text here..."></textarea><button onclick="summarizeText()">Make Short Summary</button><div id="aiOutput" class="result"></div></div>
+ <div class="card"><h3>Study Tips</h3><p>1. Study one topic at a time.</p><p>2. Practise questions after reading.</p><p>3. Revise important formulas regularly.</p><p>4. Take short breaks between study sessions.</p></div>
+</section>
+
+<!-- CREATOR ZONE -->
+<section id="creator" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>🎬 Creator Zone</h2>
+ <div class="card"><h3>Caption Generator</h3><input id="captionTopic" placeholder="Enter topic (e.g. College vlog)"><select id="captionStyle"><option value="attitude">Attitude</option><option value="funny">Funny</option><option value="simple">Simple</option><option value="motivation">Motivational</option></select><button onclick="makeCaption()">Generate Caption</button><p id="captionOutput" class="result"></p><button onclick="copyText('captionOutput')">Copy Caption</button></div>
+ <div class="card"><h3>Video Title Generator</h3><input id="titleTopic" placeholder="Enter video topic"><button onclick="makeTitle()">Generate Title</button><p id="titleOutput" class="result"></p><button onclick="copyText('titleOutput')">Copy Title</button></div>
+</section>
+
+<!-- DAILY TOOLS -->
+<section id="tools" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>🧰 Daily Tools</h2>
+ <div class="grid">
+  <div class="card"><h3>Calculator</h3><input id="numA" type="number" placeholder="First number"><select id="operator"><option value="+">Addition (+)</option><option value="-">Subtraction (-)</option><option value="*">Multiplication (×)</option><option value="/">Division (÷)</option><option value="%">Modulus (%)</option><option value="**">Power (^)</option></select><input id="numB" type="number" placeholder="Second number"><button onclick="calculate()">Calculate</button><p id="calcResult" class="result"></p></div>
+  <div class="card"><h3>Age Calculator</h3><input id="birthDate" type="date"><button onclick="calculateAge()">Calculate Age</button><p id="ageResult" class="result"></p></div>
+  <div class="card"><h3>Length Converter</h3><input id="lengthValue" type="number" placeholder="Enter value"><select id="lengthFrom"><option value="m">Meter</option><option value="km">Kilometer</option><option value="cm">Centimeter</option><option value="mm">Millimeter</option><option value="inch">Inch</option><option value="ft">Feet</option></select><select id="lengthTo"><option value="m">Meter</option><option value="km">Kilometer</option><option value="cm">Centimeter</option><option value="mm">Millimeter</option><option value="inch">Inch</option><option value="ft">Feet</option></select><button onclick="convertLength()">Convert</button><p id="lengthResult" class="result"></p></div>
+  <div class="card"><h3>Text Counter</h3><textarea id="counterText" oninput="countText()" placeholder="Type something..."></textarea><p id="counterResult" class="result">Characters: 0 | Words: 0</p></div>
+  <div class="card"><h3>Stopwatch</h3><h2 id="stopwatchDisplay">00:00:00</h2><button onclick="startWatch()">Start</button><button onclick="pauseWatch()">Pause</button><button onclick="resetWatch()">Reset</button></div>
+ </div>
+</section>
+
+<!-- KNOWLEDGE ZONE -->
+<section id="knowledge" class="zone">
+ <button class="back" onclick="goHome()">← Home</button><h2>🌍 Knowledge Zone</h2>
+ <input id="knowledgeSearch" placeholder="Search a topic..." oninput="searchKnowledge()"><div id="knowledgeResults" class="grid"></div>
+ <h3>General Knowledge Quiz</h3><div class="card"><p id="gkQuestion"></p><div id="gkOptions"></div><p id="gkFeedback"></p><button onclick="nextGK()">Next Question</button></div>
+</section>
+</main>
+
+<footer>NEXORA © 2026 | Learn. Create. Innovate.</footer>
+
+<script>
+/* NAVIGATION */
+function goHome(){
+ document.querySelectorAll(".zone").forEach(z=>z.classList.remove("active"));
+ document.getElementById("home").classList.remove("hide");
+ window.scrollTo(0,0);
+}
+function openZone(id){
+ document.getElementById("home").classList.add("hide");
+ document.querySelectorAll(".zone").forEach(z=>z.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ window.scrollTo(0,0);
+}
+
+/* HOME SEARCH */
+function searchZones(){
+ const query=document.getElementById("zoneSearch").value.toLowerCase().trim();
+ const cards=document.querySelectorAll("#zoneGrid .card");
+ let found=0;
+ cards.forEach(card=>{
+  const text=(card.textContent+" "+card.dataset.search).toLowerCase();
+  const match=text.includes(query);
+  card.style.display=match?"block":"none";
+  if(match)found++;
+ });
+ document.getElementById("searchMessage").textContent=query?found+" result(s) found":"";
+}
+
+/* EDUCATION */
+const branches=["Mechanical","Electrical","Civil","Computer Science","Electronics & Telecommunication"];
+const subjectsByBranch={
+ "Mechanical":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Engineering Mechanics","Workshop Practice","Basic Electrical"],
+ "Electrical":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Basic Electrical Engineering","Electronics","Workshop Practice"],
+ "Civil":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Building Materials","Engineering Mechanics","Surveying"],
+ "Computer Science":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Computer Fundamentals","Programming","Operating Systems"],
+ "Electronics & Telecommunication":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Basic Electronics","Electrical Engineering","Communication Basics"]
+};
+let selectedBranch="",selectedSemester=1,selectedSubject="";
+let eduQuestions=[],eduIndex=0,eduScore=0,eduAnswered=false;
+function initBranches(){
+ const box=document.getElementById("branchList");box.innerHTML="";
+ branches.forEach(branch=>{
+  const b=document.createElement("button");b.textContent=branch;b.onclick=()=>selectBranch(branch);box.appendChild(b);
+ });
+}
+function selectBranch(branch){
+ selectedBranch=branch;
+ document.getElementById("eduBranches").style.display="none";
+ document.getElementById("eduSemesters").style.display="block";
+ document.getElementById("branchHeading").textContent=branch+" — Select Semester";
+ const box=document.getElementById("semesterList");box.innerHTML="";
+ for(let i=1;i<=6;i++){
+  const b=document.createElement("button");b.textContent="Semester "+i;b.onclick=()=>selectSemester(i);box.appendChild(b);
+ }
+}
+function selectSemester(sem){
+ selectedSemester=sem;
+ document.getElementById("eduSemesters").style.display="none";
+ document.getElementById("eduSubjects").style.display="block";
+ document.getElementById("semesterHeading").textContent=selectedBranch+" — Semester "+sem;
+ const box=document.getElementById("subjectList");box.innerHTML="";
+ subjectsByBranch[selectedBranch].forEach(subject=>{
+  const b=document.createElement("button");b.textContent=subject;b.onclick=()=>openSubject(subject);box.appendChild(b);
+ });
+}
+function openSubject(subject){
+ selectedSubject=subject;
+ document.getElementById("eduSubjects").style.display="none";
+ document.getElementById("eduSubjectPage").style.display="block";
+ document.getElementById("subjectHeading").textContent=subject;
+ const info=subjectInfo(subject);
+ document.getElementById("subjectNotes").textContent=info.notes;
+ document.getElementById("subjectFormula").textContent=info.formula;
+}
+function subjectInfo(subject){
+ const data={
+ "Engineering Mathematics":{notes:"Mathematics is used to solve engineering problems involving numbers, equations, geometry and calculations.",formula:"a² + b² = c² | Area of circle = πr²"},
+ "Engineering Physics":{notes:"Physics explains motion, force, energy, heat, light and other natural phenomena used in engineering.",formula:"Speed = Distance / Time | Force = Mass × Acceleration"},
+ "Engineering Chemistry":{notes:"Engineering Chemistry studies materials, chemical reactions, corrosion and their engineering applications.",formula:"Density = Mass / Volume"},
+ "Engineering Mechanics":{notes:"Engineering Mechanics studies forces and their effects on objects at rest or in motion.",formula:"Force = Mass × Acceleration | Moment = Force × Perpendicular distance"},
+ "Operating Systems":{notes:"An operating system manages computer hardware, software, files, memory and processes.",formula:"Process management | Memory management | File management"},
+ "Basic Electrical Engineering":{notes:"Introduces voltage, current, resistance and electrical circuits.",formula:"V = I × R | P = V × I"}
+ };
+ return data[subject]||{notes:subject+" is an important subject in the "+selectedBranch+" diploma programme. Study the basic concepts, definitions and practical applications.",formula:"Revise the formulas and definitions provided by your teacher and official syllabus."};
+}
+function hideEduPanels(){
+ ["eduBranches","eduSemesters","eduSubjects","eduSubjectPage","eduQuiz"].forEach(id=>document.getElementById(id).style.display="none");
+}
+function eduBackBranches(){hideEduPanels();document.getElementById("eduBranches").style.display="block"}
+function eduBackSemesters(){hideEduPanels();document.getElementById("eduSemesters").style.display="block"}
+function eduBackSubjects(){hideEduPanels();document.getElementById("eduSubjects").style.display="block"}
+const questionBank=[
+ {q:"What is the SI unit of force?",o:["Joule","Newton","Watt","Pascal"],a:1,e:"The SI unit of force is Newton (N)."},
+ {q:"Which device measures electric current?",o:["Voltmeter","Ammeter","Thermometer","Barometer"],a:1,e:"An ammeter measures electric current."},
+ {q:"What is the SI unit of power?",o:["Watt","Newton","Joule","Metre"],a:0,e:"Power is measured in Watt (W)."},
+ {q:"Which one is a programming language?",o:["HTML","Python","HTTP","USB"],a:1,e:"Python is a programming language."},
+ {q:"What does CAD stand for?",o:["Computer-Aided Design","Computer Automatic Data","Central Area Design","Control-Aided Device"],a:0,e:"CAD stands for Computer-Aided Design."},
+ {q:"What is the SI unit of length?",o:["Kilogram","Second","Metre","Ampere"],a:2,e:"The SI base unit of length is metre."},
+ {q:"Which material is a good electrical conductor?",o:["Rubber","Copper","Wood","Plastic"],a:1,e:"Copper is a good conductor of electricity."},
+ {q:"What does CPU stand for?",o:["Central Processing Unit","Computer Power Unit","Central Program Utility","Control Processing User"],a:0,e:"CPU stands for Central Processing Unit."}
+];
+function startEduQuiz(){
+ hideEduPanels();document.getElementById("eduQuiz").style.display="block";
+ eduQuestions=questionBank.slice().sort(()=>Math.random()-.5).slice(0,5);
+ eduIndex=0;eduScore=0;document.getElementById("quizFinish").style.display="none";showEduQuestion();
+}
+function showEduQuestion(){
+ eduAnswered=false;const q=eduQuestions[eduIndex];
+ document.getElementById("quizTitle").textContent=selectedSubject+" Quiz";
+ document.getElementById("quizProgress").textContent="Question "+(eduIndex+1)+" of "+eduQuestions.length;
+ document.getElementById("quizQuestion").textContent=q.q;
+ document.getElementById("quizFeedback").innerHTML="";
+ document.getElementById("nextQuestion").style.display="none";
+ const box=document.getElementById("quizOptions");box.innerHTML="";
+ q.o.forEach((option,i)=>{
+  const b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+option;b.onclick=()=>answerEdu(i);box.appendChild(b);
+ });
+}
+function answerEdu(index){
+ if(eduAnswered)return;eduAnswered=true;const q=eduQuestions[eduIndex];
+ const buttons=document.querySelectorAll("#quizOptions button");
+ buttons.forEach((b,i)=>{b.disabled=true;if(i===q.a)b.style.borderColor="#36d98b"});
+ if(index===q.a){eduScore++;document.getElementById("quizFeedback").innerHTML='<div class="result correct">Correct answer! ✓<br>'+q.e+'</div>'}
+ else{document.getElementById("quizFeedback").innerHTML='<div class="result wrong">Wrong answer!<br>Correct answer: <b>'+q.o[q.a]+'</b><br>'+q.e+'</div>'}
+ document.getElementById("nextQuestion").style.display="inline-block";
+ document.getElementById("nextQuestion").textContent=eduIndex===eduQuestions.length-1?"See Result":"Next Question →";
+}
+function nextEduQuestion(){
+ if(!eduAnswered)return;eduIndex++;
+ if(eduIndex>=eduQuestions.length){
+  document.getElementById("quizQuestion").textContent="Quiz finished!";
+  document.getElementById("quizOptions").innerHTML="";
+  document.getElementById("quizFeedback").innerHTML="";
+  document.getElementById("nextQuestion").style.display="none";
+  document.getElementById("quizFinish").style.display="block";
+  document.getElementById("quizScore").textContent="Your score: "+eduScore+" / "+eduQuestions.length;
+ }else showEduQuestion();
+}
+function newEduQuiz(){startEduQuiz()}
+initBranches();
+
+/* ENGINEERING */
+function getNumber(id){return Number(document.getElementById(id).value)}
+function calcForce(){document.getElementById("forceResult").textContent="Force = "+(getNumber("forceMass")*getNumber("forceAcc"))+" N"}
+function calcPower(){let t=getNumber("powerTime");document.getElementById("powerResult").textContent=t===0?"Time cannot be zero.":"Power = "+(getNumber("powerWork")/t)+" W"}
+function calcDensity(){let v=getNumber("densityVol");document.getElementById("densityResult").textContent=v===0?"Volume cannot be zero.":"Density = "+(getNumber("densityMass")/v)+" kg/m³"}
+
+/* DEVELOPER */
+function runPlayground(){document.getElementById("playOutput").srcdoc=document.getElementById("playCode").value}
+
+/* CYBER */
+const cyberBank=[
+ {q:"What is phishing?",o:["A type of online scam","A computer part","A programming language"],a:0,e:"Phishing tricks people into sharing private information."},
+ {q:"What makes a password stronger?",o:["Using your name","Using a long unique passphrase","Using 123456"],a:1,e:"A long, unique password is harder to guess."},
+ {q:"Where should you practise cybersecurity skills?",o:["Random websites","Systems without permission","Legal training labs"],a:2,e:"Always practise in authorised labs."}
+];
+let cyberIndex=0;
+function showCyber(){
+ const q=cyberBank[cyberIndex];document.getElementById("cyberQuestion").textContent=q.q;document.getElementById("cyberFeedback").textContent="";
+ const box=document.getElementById("cyberOptions");box.innerHTML="";
+ q.o.forEach((v,i)=>{
+  const b=document.createElement("button");b.className="option";b.textContent=v;
+  b.onclick=()=>{box.querySelectorAll("button").forEach(x=>x.disabled=true);document.getElementById("cyberFeedback").textContent=(i===q.a?"Correct! ":"Not quite. Correct answer: "+q.o[q.a]+". ")+q.e};
+  box.appendChild(b);
+ });
+}
+function nextCyber(){cyberIndex=(cyberIndex+1)%cyberBank.length;showCyber()}
+showCyber();
+
+/* AI HELPER */
+function summarizeText(){
+ const text=document.getElementById("aiInput").value.trim();
+ if(!text){document.getElementById("aiOutput").textContent="Please enter some text.";return}
+ const sentences=text.match(/[^.!?]+[.!?]*/g)||[text];
+ document.getElementById("aiOutput").textContent=sentences.slice(0,3).join(" ").trim();
+}
+
+/* CREATOR */
+function makeCaption(){
+ const topic=document.getElementById("captionTopic").value.trim()||"My Day";
+ const style=document.getElementById("captionStyle").value;
+ const lines={attitude:"No limits, just goals. 🔥",funny:"Life is short, enjoy every moment! 😂",simple:"Some moments become beautiful memories. ❤️",motivation:"Keep learning, keep growing. Never give up! 💪"};
+ document.getElementById("captionOutput").textContent=topic+" ✨\n"+lines[style]+" #NEXORA #NewMemories";
+}
+function makeTitle(){
+ const topic=document.getElementById("titleTopic").value.trim()||"My Video";
+ document.getElementById("titleOutput").textContent=topic+" | New Memories, New Experiences ✨";
+}
+function copyText(id){
+ const value=document.getElementById(id).textContent;
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(value).then(()=>alert("Copied!")).catch(()=>alert("Copy not available. Select and copy the text."));
+ else alert("Copy not available. Select and copy the text.");
+}
+
+/* DAILY TOOLS */
+function calculate(){
+ const a=getNumber("numA"),b=getNumber("numB"),op=document.getElementById("operator").value;let r;
+ if(op==="+")r=a+b;if(op==="-")r=a-b;if(op==="*")r=a*b;
+ if(op==="/")r=b===0?"Cannot divide by zero":a/b;
+ if(op==="%")r=b===0?"Cannot divide by zero":a%b;
+ if(op==="**")r=a**b;
+ document.getElementById("calcResult").textContent="Result: "+r;
+}
+function calculateAge(){
+ const value=document.getElementById("birthDate").value;
+ if(!value){document.getElementById("ageResult").textContent="Select your birth date.";return}
+ const birth=new Date(value+"T00:00:00"),today=new Date();
+ if(birth>today){document.getElementById("ageResult").textContent="Birth date cannot be in the future.";return}
+ let age=today.getFullYear()-birth.getFullYear();
+ if(today.getMonth()<birth.getMonth()||(today.getMonth()===birth.getMonth()&&today.getDate()<birth.getDate()))age--;
+ document.getElementById("ageResult").textContent="Your age: "+age+" years";
+}
+const units={m:1,km:1000,cm:.01,mm:.001,inch:.0254,ft:.3048};
+function convertLength(){
+ const value=getNumber("lengthValue"),from=document.getElementById("lengthFrom").value,to=document.getElementById("lengthTo").value;
+ document.getElementById("lengthResult").textContent="Result: "+(value*units[from]/units[to])+" "+to;
+}
+function countText(){
+ const text=document.getElementById("counterText").value;
+ const words=text.trim()?text.trim().split(/\s+/).length:0;
+ document.getElementById("counterResult").textContent="Characters: "+text.length+" | Words: "+words;
+}
+
+/* STOPWATCH */
+let watchSeconds=0,watchInterval=null;
+function displayWatch(){
+ const h=String(Math.floor(watchSeconds/3600)).padStart(2,"0"),m=String(Math.floor((watchSeconds%3600)/60)).padStart(2,"0"),s=String(watchSeconds%60).padStart(2,"0");
+ document.getElementById("stopwatchDisplay").textContent=h+":"+m+":"+s;
+}
+function startWatch(){if(watchInterval!==null)return;watchInterval=setInterval(()=>{watchSeconds++;displayWatch()},1000)}
+function pauseWatch(){clearInterval(watchInterval);watchInterval=null}
+function resetWatch(){pauseWatch();watchSeconds=0;displayWatch()}
+
+/* KNOWLEDGE */
+const knowledge=[
+ ["Solar System","The Solar System includes the Sun and objects that orbit it."],
+ ["Newton","Isaac Newton formulated three laws of motion."],
+ ["Computer","A computer processes data according to instructions."],
+ ["Electricity","Electric current is the rate of flow of electric charge."],
+ ["Mechanical Engineering","Mechanical engineering deals with machines, energy and mechanical systems."],
+ ["Internet","The Internet is a global network of connected computer networks."]
+];
+function searchKnowledge(){
+ const term=document.getElementById("knowledgeSearch").value.toLowerCase(),box=document.getElementById("knowledgeResults");box.innerHTML="";
+ knowledge.filter(item=>(item[0]+" "+item[1]).toLowerCase().includes(term)).forEach(item=>{
+  const div=document.createElement("div");div.className="card";
+  const h=document.createElement("h3");h.textContent=item[0];
+  const p=document.createElement("p");p.textContent=item[1];
+  div.append(h,p);box.appendChild(div);
+ });
+}
+searchKnowledge();
+
+const gkBank=[
+ {q:"Which planet is known as the Red Planet?",o:["Earth","Mars","Venus","Jupiter"],a:1},
+ {q:"How many sides does a triangle have?",o:["Two","Three","Four","Five"],a:1},
+ {q:"Which gas do plants absorb?",o:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],a:2},
+ {q:"What is the SI unit of electric current?",o:["Volt","Ampere","Watt","Ohm"],a:1}
+];
+let gkIndex=0;
+function showGK(){
+ const q=gkBank[gkIndex];document.getElementById("gkQuestion").textContent=q.q;document.getElementById("gkFeedback").textContent="";
+ const box=document.getElementById("gkOptions");box.innerHTML="";
+ q.o.forEach((v,i)=>{
+  const b=document.createElement("button");b.className="option";b.textContent=v;
+  b.onclick=()=>{box.querySelectorAll("button").forEach(x=>x.disabled=true);document.getElementById("gkFeedback").textContent=i===q.a?"Correct answer! ✓":"Wrong answer. Correct answer: "+q.o[q.a]};
+  box.appendChild(b);
+ });
+}
+function nextGK(){gkIndex=(gkIndex+1)%gkBank.length;showGK()}
+showGK();
+</script>
+</body>
+</html>
