@@ -277,56 +277,313 @@ function searchZones(){
  });
  document.getElementById("searchMessage").textContent=query?found+" result(s) found":"";
 }
+ 
+/* EDUCATION ZONE - NEXORA */
 
-/* EDUCATION */
-const branches=["Mechanical","Electrical","Civil","Computer Science","Electronics & Telecommunication"];
-const subjectsByBranch={
- "Mechanical":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Engineering Mechanics","Workshop Practice","Basic Electrical"],
- "Electrical":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Basic Electrical Engineering","Electronics","Workshop Practice"],
- "Civil":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Building Materials","Engineering Mechanics","Surveying"],
- "Computer Science":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Computer Fundamentals","Programming","Operating Systems"],
- "Electronics & Telecommunication":["Engineering Mathematics","Engineering Physics","Engineering Chemistry","Basic Electronics","Electrical Engineering","Communication Basics"]
-};
-let selectedBranch="",selectedSemester=1,selectedSubject="";
-let eduQuestions=[],eduIndex=0,eduScore=0,eduAnswered=false;
+const branches=[
+ "Mechanical",
+ "Electrical",
+ "Civil",
+ "Computer Science",
+ "Electronics & Telecommunication"
+];
+
+const firstYearSubjects=[
+ "Communication Skills in English",
+ "Applied Physics",
+ "Applied Chemistry & Environmental Science",
+ "Mathematics",
+ "Fundamentals of Computing & Artificial Intelligence",
+ "Fundamentals of Electrical & Electronics Engineering",
+ "Engineering Mechanics"
+];
+
+let selectedBranch="";
+let selectedSemester="";
+let selectedSubject="";
+let eduQuestions=[];
+let eduIndex=0;
+let eduScore=0;
+let eduAnswered=false;
+
 function initBranches(){
- const box=document.getElementById("branchList");box.innerHTML="";
+ const box=document.getElementById("branchList");
+ box.innerHTML="";
  branches.forEach(branch=>{
-  const b=document.createElement("button");b.textContent=branch;b.onclick=()=>selectBranch(branch);box.appendChild(b);
+  const b=document.createElement("button");
+  b.textContent=branch;
+  b.onclick=()=>selectBranch(branch);
+  box.appendChild(b);
  });
 }
+
+function hideEduPanels(){
+ ["eduBranches","eduSemesters","eduSubjects","eduSubjectPage","eduQuiz"]
+ .forEach(id=>document.getElementById(id).style.display="none");
+}
+
 function selectBranch(branch){
  selectedBranch=branch;
- document.getElementById("eduBranches").style.display="none";
+ hideEduPanels();
  document.getElementById("eduSemesters").style.display="block";
- document.getElementById("branchHeading").textContent=branch+" — Select Semester";
- const box=document.getElementById("semesterList");box.innerHTML="";
- for(let i=1;i<=6;i++){
-  const b=document.createElement("button");b.textContent="Semester "+i;b.onclick=()=>selectSemester(i);box.appendChild(b);
+ document.getElementById("branchHeading").textContent=branch+" — Select Year";
+
+ const box=document.getElementById("semesterList");
+ box.innerHTML="";
+
+ const first=document.createElement("button");
+ first.textContent="First Year (Annual - Common Syllabus)";
+ first.onclick=()=>selectSemester("First Year");
+ box.appendChild(first);
+
+ for(let i=3;i<=6;i++){
+  const b=document.createElement("button");
+  b.textContent="Semester "+i;
+  b.onclick=()=>selectSemester("Semester "+i);
+  box.appendChild(b);
  }
 }
+
 function selectSemester(sem){
  selectedSemester=sem;
- document.getElementById("eduSemesters").style.display="none";
+ hideEduPanels();
  document.getElementById("eduSubjects").style.display="block";
- document.getElementById("semesterHeading").textContent=selectedBranch+" — Semester "+sem;
- const box=document.getElementById("subjectList");box.innerHTML="";
- subjectsByBranch[selectedBranch].forEach(subject=>{
-  const b=document.createElement("button");b.textContent=subject;b.onclick=()=>openSubject(subject);box.appendChild(b);
- });
+ document.getElementById("semesterHeading").textContent=selectedBranch+" — "+sem;
+
+ const box=document.getElementById("subjectList");
+ box.innerHTML="";
+
+ if(sem==="First Year"){
+  firstYearSubjects.forEach(subject=>{
+   const b=document.createElement("button");
+   b.textContent=subject;
+   b.onclick=()=>openSubject(subject);
+   box.appendChild(b);
+  });
+ }else{
+  const p=document.createElement("p");
+  p.className="small";
+  p.textContent="Official branch-wise syllabus subjects for "+sem+" will be added after verification.";
+  box.appendChild(p);
+ }
 }
+
 function openSubject(subject){
  selectedSubject=subject;
- document.getElementById("eduSubjects").style.display="none";
+ hideEduPanels();
  document.getElementById("eduSubjectPage").style.display="block";
  document.getElementById("subjectHeading").textContent=subject;
+
  const info=subjectInfo(subject);
  document.getElementById("subjectNotes").textContent=info.notes;
  document.getElementById("subjectFormula").textContent=info.formula;
 }
+
 function subjectInfo(subject){
  const data={
- "Engineering Mathematics":{notes:"Mathematics is used to solve engineering p
+ "Communication Skills in English":{
+  notes:"Study communication, grammar, vocabulary, reading, writing and professional communication.",
+  formula:"Communication = Sender + Message + Receiver"
+ },
+ "Applied Physics":{
+  notes:"Study physical quantities, units, motion, force, work, energy, heat, light and electricity.",
+  formula:"Speed = Distance / Time | Force = Mass × Acceleration"
+ },
+ "Applied Chemistry & Environmental Science":{
+  notes:"Study basic chemistry, atoms, molecules, chemical bonding, materials and environmental science.",
+  formula:"Density = Mass / Volume"
+ },
+ "Mathematics":{
+  notes:"Study algebra, trigonometry, geometry, equations and mathematical methods used in engineering.",
+  formula:"(a+b)² = a² + 2ab + b²"
+ },
+ "Fundamentals of Computing & Artificial Intelligence":{
+  notes:"Study computer fundamentals, hardware, software, programming concepts and AI basics.",
+  formula:"Computer = Input + Processing + Output"
+ },
+ "Fundamentals of Electrical & Electronics Engineering":{
+  notes:"Study basic electrical quantities, circuits, components and electronic fundamentals.",
+  formula:"V = IR | P = VI"
+ },
+ "Engineering Mechanics":{
+  notes:"Study force, motion, equilibrium, moments and basic engineering mechanics.",
+  formula:"Moment = Force × Perpendicular Distance"
+ }
+ };
+ return data[subject]||{
+  notes:"Study the concepts according to the official syllabus.",
+  formula:"Refer to your subject notes."
+ };
+}
+
+function eduBackBranches(){
+ hideEduPanels();
+ document.getElementById("eduBranches").style.display="block";
+}
+
+function eduBackSemesters(){
+ hideEduPanels();
+ document.getElementById("eduSemesters").style.display="block";
+}
+
+function eduBackSubjects(){
+ hideEduPanels();
+ document.getElementById("eduSubjects").style.display="block";
+}
+
+/* FIRST YEAR SAMPLE QUESTION BANK */
+
+const questionBank={
+
+ "Communication Skills in English":[
+  {q:"What is communication?",o:["Exchange of information","Only writing","Only speaking","Drawing"],a:0,e:"Communication is the exchange of information, ideas or feelings."},
+  {q:"Which is a form of verbal communication?",o:["Speaking","Facial expression","Gestures","Posture"],a:0,e:"Verbal communication uses spoken or written words."},
+  {q:"Which skill helps us understand spoken information?",o:["Listening","Drawing","Typing","Running"],a:0,e:"Listening helps us understand spoken messages."},
+  {q:"What is the opposite of Accept?",o:["Reject","Receive","Allow","Agree"],a:0,e:"Reject is the opposite of accept."},
+  {q:"Which one is a vowel?",o:["A","B","C","D"],a:0,e:"A is one of the five English vowels."}
+ ],
+
+ "Applied Physics":[
+  {q:"What is the SI unit of force?",o:["Joule","Newton","Watt","Pascal"],a:1,e:"Force is measured in Newton (N)."},
+  {q:"What is the SI unit of length?",o:["Kilogram","Second","Metre","Ampere"],a:2,e:"Metre is the SI base unit of length."},
+  {q:"Which instrument measures temperature?",o:["Barometer","Thermometer","Ammeter","Voltmeter"],a:1,e:"A thermometer measures temperature."},
+  {q:"What is the SI unit of energy?",o:["Watt","Newton","Joule","Metre"],a:2,e:"Joule is the SI unit of energy."},
+  {q:"What is speed?",o:["Distance divided by time","Mass divided by volume","Force divided by area","Work divided by force"],a:0,e:"Speed is distance travelled per unit time."}
+ ],
+
+ "Applied Chemistry & Environmental Science":[
+  {q:"What is the chemical symbol of oxygen?",o:["O","Ox","Og","Om"],a:0,e:"O is the chemical symbol of oxygen."},
+  {q:"What is the chemical formula of water?",o:["CO2","H2O","O2","NaCl"],a:1,e:"Water contains two hydrogen atoms and one oxygen atom."},
+  {q:"What is the pH of neutral water at about 25°C?",o:["1","5","7","14"],a:2,e:"Neutral water has a pH of approximately 7."},
+  {q:"Which gas is essential for human respiration?",o:["Oxygen","Nitrogen","Helium","Neon"],a:0,e:"Humans use oxygen for cellular respiration."},
+  {q:"What is the chemical symbol of sodium?",o:["S","So","Na","N"],a:2,e:"Na is the chemical symbol of sodium."}
+ ],
+
+ "Mathematics":[
+  {q:"What is 12 × 5?",o:["50","55","60","65"],a:2,e:"12 multiplied by 5 equals 60."},
+  {q:"What is the approximate value of π?",o:["2.14","3.14","4.14","5.14"],a:1,e:"Pi is approximately equal to 3.14."},
+  {q:"What is the square of 9?",o:["18","27","72","81"],a:3,e:"9 × 9 = 81."},
+  {q:"What is the value of sin 90°?",o:["0","1","-1","0.5"],a:1,e:"The value of sin 90 degrees is 1."},
+  {q:"What is 15 + 25?",o:["30","35","40","45"],a:2,e:"15 + 25 = 40."}
+ ],
+
+ "Fundamentals of Computing & Artificial Intelligence":[
+  {q:"What does CPU stand for?",o:["Central Processing Unit","Computer Power Unit","Central Program Utility","Control Processing User"],a:0,e:"CPU stands for Central Processing Unit."},
+  {q:"Which one is a programming language?",o:["Python","HTTP","USB","HTML"],a:0,e:"Python is a programming language."},
+  {q:"Which device is used to input text?",o:["Monitor","Keyboard","Speaker","Printer"],a:1,e:"A keyboard is an input device."},
+  {q:"What does AI stand for?",o:["Automatic Internet","Artificial Intelligence","Advanced Input","Applied Information"],a:1,e:"AI stands for Artificial Intelligence."},
+  {q:"Which is an output device?",o:["Mouse","Keyboard","Monitor","Scanner"],a:2,e:"A monitor displays information from a computer."}
+ ],
+
+ "Fundamentals of Electrical & Electronics Engineering":[
+  {q:"What is the SI unit of electric current?",o:["Volt","Ampere","Watt","Ohm"],a:1,e:"Electric current is measured in Ampere."},
+  {q:"Which instrument measures voltage?",o:["Ammeter","Voltmeter","Thermometer","Barometer"],a:1,e:"A voltmeter measures potential difference."},
+  {q:"What is the unit of resistance?",o:["Ohm","Watt","Joule","Newton"],a:0,e:"Electrical resistance is measured in Ohms."},
+  {q:"Which material is a good conductor?",o:["Rubber","Copper","Plastic","Wood"],a:1,e:"Copper is a good electrical conductor."},
+  {q:"What is the formula of Ohm's law?",o:["V = IR","P = F/A","F = ma","W = mg"],a:0,e:"Ohm's law is expressed as V = IR."}
+ ],
+
+ "Engineering Mechanics":[
+  {q:"What is the SI unit of moment of force?",o:["Newton metre","Joule per second","Kilogram","Metre per second"],a:0,e:"Moment of force is measured in Newton metre."},
+  {q:"What is the formula for force?",o:["F = ma","P = VI","V = IR","D = m/V"],a:0,e:"Newton's second law gives force as mass multiplied by acceleration."},
+  {q:"What is the SI unit of mass?",o:["Metre","Kilogram","Newton","Second"],a:1,e:"Kilogram is the SI base unit of mass."},
+  {q:"When is a body in equilibrium?",o:["When net force is zero","When speed is maximum","When mass is zero","When temperature is zero"],a:0,e:"A body is in translational equilibrium when resultant force is zero."},
+  {q:"What is the SI unit of acceleration?",o:["m/s","m/s²","kg/m³","N/m"],a:1,e:"Acceleration is measured in metres per second squared."}
+ ]
+
+};
+
+function startEduQuiz(){
+ const bank=questionBank[selectedSubject]||[];
+
+ if(bank.length===0){
+  alert("Questions for this subject have not been added yet.");
+  return;
+ }
+
+ hideEduPanels();
+ document.getElementById("eduQuiz").style.display="block";
+
+ eduQuestions=bank.slice().sort(()=>Math.random()-0.5);
+ eduIndex=0;
+ eduScore=0;
+
+ document.getElementById("quizFinish").style.display="none";
+ showEduQuestion();
+}
+
+function showEduQuestion(){
+ eduAnswered=false;
+ const q=eduQuestions[eduIndex];
+
+ document.getElementById("quizTitle").textContent=selectedSubject+" Quiz";
+ document.getElementById("quizProgress").textContent=
+  "Question "+(eduIndex+1)+" of "+eduQuestions.length;
+
+ document.getElementById("quizQuestion").textContent=q.q;
+ document.getElementById("quizFeedback").innerHTML="";
+ document.getElementById("nextQuestion").style.display="none";
+
+ const box=document.getElementById("quizOptions");
+ box.innerHTML="";
+
+ q.o.forEach((option,i)=>{
+  const b=document.createElement("button");
+  b.className="option";
+  b.textContent=String.fromCharCode(65+i)+". "+option;
+  b.onclick=()=>answerEdu(i);
+  box.appendChild(b);
+ });
+}
+
+function answerEdu(index){
+ if(eduAnswered)return;
+ eduAnswered=true;
+
+ const q=eduQuestions[eduIndex];
+ const buttons=document.querySelectorAll("#quizOptions button");
+
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q.a)b.style.borderColor="#36d98b";
+ });
+
+ if(index===q.a){
+  eduScore++;
+  document.getElementById("quizFeedback").innerHTML=
+   '<div class="result correct">Correct answer! ✓<br>'+q.e+'</div>';
+ }else{
+  document.getElementById("quizFeedback").innerHTML=
+   '<div class="result wrong">Wrong answer!<br>Correct answer: <b>'+
+   q.o[q.a]+'</b><br>'+q.e+'</div>';
+ }
+
+ document.getElementById("nextQuestion").style.display="inline-block";
+ document.getElementById("nextQuestion").textContent=
+  eduIndex===eduQuestions.length-1?"See Result":"Next Question →";
+}
+
+function nextEduQuestion(){
+ if(!eduAnswered)return;
+ eduIndex++;
+
+ if(eduIndex>=eduQuestions.length){
+  document.getElementById("quizQuestion").textContent="Quiz finished!";
+  document.getElementById("quizOptions").innerHTML="";
+  document.getElementById("quizFeedback").innerHTML="";
+  document.getElementById("nextQuestion").style.display="none";
+  document.getElementById("quizFinish").style.display="block";
+  document.getElementById("quizScore").textContent=
+   "Your score: "+eduScore+" / "+eduQuestions.length;
+ }else{
+  showEduQuestion();
+ }
+}
+
+function newEduQuiz(){
+ startEduQuiz();
+}
+
 initBranches();
 
 /* ENGINEERING */
