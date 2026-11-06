@@ -124,21 +124,54 @@ hr{border:0;border-top:1px solid #1d3e59;margin:20px 0}
 <section id="education" class="zone">
  <button class="back" onclick="goHome()">← Home</button>
  <h2>📚 Education Zone</h2>
- <p class="small">Choose your branch, semester and subject.</p>
- <div id="eduBranches"><h3>Select Branch</h3><div class="grid" id="branchList"></div></div>
- <div id="eduSemesters" style="display:none"><button onclick="eduBackBranches()">← Branches</button><h3 id="branchHeading"></h3><div class="grid" id="semesterList"></div></div>
- <div id="eduSubjects" style="display:none"><button onclick="eduBackSemesters()">← Semesters</button><h3 id="semesterHeading"></h3><div class="grid" id="subjectList"></div></div>
- <div id="eduSubjectPage" style="display:none">
-  <button onclick="eduBackSubjects()">← Subjects</button><h3 id="subjectHeading"></h3>
-  <div class="card"><h3>Study Notes</h3><p id="subjectNotes"></p><h3>Important Formula</h3><p id="subjectFormula"></p></div>
-  <br><button onclick="startEduQuiz()">Start MCQ Quiz</button>
+ <p class="small">SCTE&VT Odisha | Admission Session 2026–27</p>
+
+ <div id="eduBranches">
+  <h3>Select Branch</h3>
+  <div class="grid" id="branchList"></div>
  </div>
+
+ <div id="eduSemesters" style="display:none">
+  <button onclick="eduBackBranches()">← Branches</button>
+  <h3 id="branchHeading"></h3>
+  <div class="grid" id="semesterList"></div>
+ </div>
+
+ <div id="eduSubjects" style="display:none">
+  <button onclick="eduBackSemesters()">← Back</button>
+  <h3 id="semesterHeading"></h3>
+  <div class="grid" id="subjectList"></div>
+ </div>
+
+ <div id="eduSubjectPage" style="display:none">
+  <button onclick="eduBackSubjects()">← Subjects</button>
+  <h3 id="subjectHeading"></h3>
+  <div class="card">
+   <h3>Study Notes</h3>
+   <p id="subjectNotes"></p>
+   <h3>Important Formula</h3>
+   <p id="subjectFormula"></p>
+  </div>
+  <br>
+  <button onclick="startEduQuiz()">Start MCQ Quiz</button>
+ </div>
+
  <div id="eduQuiz" style="display:none">
   <button onclick="eduBackSubjects()">← Subjects</button>
-  <h3 id="quizTitle">Quiz</h3><p id="quizProgress"></p>
-  <div class="card"><h3 id="quizQuestion"></h3><div id="quizOptions"></div><div id="quizFeedback"></div><button id="nextQuestion" onclick="nextEduQuestion()" style="display:none">Next Question →</button></div>
-  <div id="quizFinish" style="display:none" class="result"><h3>Quiz Completed!</h3><p id="quizScore"></p><button onclick="startEduQuiz()">Try Again</button><button onclick="newEduQuiz()">New Questions</button></div>
- </div>
+  <h3 id="quizTitle">Quiz</h3>
+  <p id="quizProgress"></p>
+  <div class="card">
+   <h3 id="quizQuestion"></h3>
+   <div id="quizOptions"></div>
+   <div id="quizFeedback"></div>
+   <button id="nextQuestion" onclick="nextEduQuestion()" style="display:none">Next Question →</button>
+  </div>
+  <div id="quizFinish" style="display:none" class="result">
+   <h3>Quiz Completed!</h3>
+   <p id="quizScore"></p>
+   <button onclick="startEduQuiz()">Try Again</button>
+   <button onclick="newEduQuiz()">New Questions</button>
+  </div>
 </section>
 
 <!-- ENGINEERING ZONE -->
