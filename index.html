@@ -326,69 +326,7 @@ function openSubject(subject){
 }
 function subjectInfo(subject){
  const data={
- "Engineering Mathematics":{notes:"Mathematics is used to solve engineering problems involving numbers, equations, geometry and calculations.",formula:"a² + b² = c² | Area of circle = πr²"},
- "Engineering Physics":{notes:"Physics explains motion, force, energy, heat, light and other natural phenomena used in engineering.",formula:"Speed = Distance / Time | Force = Mass × Acceleration"},
- "Engineering Chemistry":{notes:"Engineering Chemistry studies materials, chemical reactions, corrosion and their engineering applications.",formula:"Density = Mass / Volume"},
- "Engineering Mechanics":{notes:"Engineering Mechanics studies forces and their effects on objects at rest or in motion.",formula:"Force = Mass × Acceleration | Moment = Force × Perpendicular distance"},
- "Operating Systems":{notes:"An operating system manages computer hardware, software, files, memory and processes.",formula:"Process management | Memory management | File management"},
- "Basic Electrical Engineering":{notes:"Introduces voltage, current, resistance and electrical circuits.",formula:"V = I × R | P = V × I"}
- };
- return data[subject]||{notes:subject+" is an important subject in the "+selectedBranch+" diploma programme. Study the basic concepts, definitions and practical applications.",formula:"Revise the formulas and definitions provided by your teacher and official syllabus."};
-}
-function hideEduPanels(){
- ["eduBranches","eduSemesters","eduSubjects","eduSubjectPage","eduQuiz"].forEach(id=>document.getElementById(id).style.display="none");
-}
-function eduBackBranches(){hideEduPanels();document.getElementById("eduBranches").style.display="block"}
-function eduBackSemesters(){hideEduPanels();document.getElementById("eduSemesters").style.display="block"}
-function eduBackSubjects(){hideEduPanels();document.getElementById("eduSubjects").style.display="block"}
-const questionBank=[
- {q:"What is the SI unit of force?",o:["Joule","Newton","Watt","Pascal"],a:1,e:"The SI unit of force is Newton (N)."},
- {q:"Which device measures electric current?",o:["Voltmeter","Ammeter","Thermometer","Barometer"],a:1,e:"An ammeter measures electric current."},
- {q:"What is the SI unit of power?",o:["Watt","Newton","Joule","Metre"],a:0,e:"Power is measured in Watt (W)."},
- {q:"Which one is a programming language?",o:["HTML","Python","HTTP","USB"],a:1,e:"Python is a programming language."},
- {q:"What does CAD stand for?",o:["Computer-Aided Design","Computer Automatic Data","Central Area Design","Control-Aided Device"],a:0,e:"CAD stands for Computer-Aided Design."},
- {q:"What is the SI unit of length?",o:["Kilogram","Second","Metre","Ampere"],a:2,e:"The SI base unit of length is metre."},
- {q:"Which material is a good electrical conductor?",o:["Rubber","Copper","Wood","Plastic"],a:1,e:"Copper is a good conductor of electricity."},
- {q:"What does CPU stand for?",o:["Central Processing Unit","Computer Power Unit","Central Program Utility","Control Processing User"],a:0,e:"CPU stands for Central Processing Unit."}
-];
-function startEduQuiz(){
- hideEduPanels();document.getElementById("eduQuiz").style.display="block";
- eduQuestions=questionBank.slice().sort(()=>Math.random()-.5).slice(0,5);
- eduIndex=0;eduScore=0;document.getElementById("quizFinish").style.display="none";showEduQuestion();
-}
-function showEduQuestion(){
- eduAnswered=false;const q=eduQuestions[eduIndex];
- document.getElementById("quizTitle").textContent=selectedSubject+" Quiz";
- document.getElementById("quizProgress").textContent="Question "+(eduIndex+1)+" of "+eduQuestions.length;
- document.getElementById("quizQuestion").textContent=q.q;
- document.getElementById("quizFeedback").innerHTML="";
- document.getElementById("nextQuestion").style.display="none";
- const box=document.getElementById("quizOptions");box.innerHTML="";
- q.o.forEach((option,i)=>{
-  const b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+option;b.onclick=()=>answerEdu(i);box.appendChild(b);
- });
-}
-function answerEdu(index){
- if(eduAnswered)return;eduAnswered=true;const q=eduQuestions[eduIndex];
- const buttons=document.querySelectorAll("#quizOptions button");
- buttons.forEach((b,i)=>{b.disabled=true;if(i===q.a)b.style.borderColor="#36d98b"});
- if(index===q.a){eduScore++;document.getElementById("quizFeedback").innerHTML='<div class="result correct">Correct answer! ✓<br>'+q.e+'</div>'}
- else{document.getElementById("quizFeedback").innerHTML='<div class="result wrong">Wrong answer!<br>Correct answer: <b>'+q.o[q.a]+'</b><br>'+q.e+'</div>'}
- document.getElementById("nextQuestion").style.display="inline-block";
- document.getElementById("nextQuestion").textContent=eduIndex===eduQuestions.length-1?"See Result":"Next Question →";
-}
-function nextEduQuestion(){
- if(!eduAnswered)return;eduIndex++;
- if(eduIndex>=eduQuestions.length){
-  document.getElementById("quizQuestion").textContent="Quiz finished!";
-  document.getElementById("quizOptions").innerHTML="";
-  document.getElementById("quizFeedback").innerHTML="";
-  document.getElementById("nextQuestion").style.display="none";
-  document.getElementById("quizFinish").style.display="block";
-  document.getElementById("quizScore").textContent="Your score: "+eduScore+" / "+eduQuestions.length;
- }else showEduQuestion();
-}
-function newEduQuiz(){startEduQuiz()}
+ "Engineering Mathematics":{notes:"Mathematics is used to solve engineering p
 initBranches();
 
 /* ENGINEERING */
