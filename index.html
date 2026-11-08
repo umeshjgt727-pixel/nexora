@@ -542,23 +542,6 @@ const questionBank={
 
  showEduQuestion();
 }
- const bank=questionBank[selectedSubject]||[];
-
- if(bank.length===0){
-  alert("Questions for this subject have not been added yet.");
-  return;
- }
-
- hideEduPanels();
- document.getElementById("eduQuiz").style.display="block";
-
- eduQuestions=bank.slice().sort(()=>Math.random()-0.5);
- eduIndex=0;
- eduScore=0;
-
- document.getElementById("quizFinish").style.display="none";
- showEduQuestion();
-}
 
 function showEduQuestion(){
  eduAnswered=false;
