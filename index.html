@@ -494,7 +494,54 @@ const questionBank={
 
 };
 
-function startEduQuiz(){
+ function startEduQuiz(){
+ const bank=questionBank[selectedSubject]||[];
+
+ if(bank.length===0){
+  alert("Questions for this subject have not been added yet.");
+  return;
+ }
+
+ const storageKey="nexoraEduDeck_"+selectedSubject;
+ let deck;
+
+ try{
+  deck=JSON.parse(localStorage.getItem(storageKey)||"null");
+ }catch(e){
+  deck=null;
+ }
+
+ if(!Array.isArray(deck) ||
+ deck.some(i=>!Number.isInteger(i)||i<0||i>=bank.length)){
+  deck=[];
+ }
+
+ if(deck.length===0){
+  deck=Array.from({length:bank.length},(_,i)=>i);
+
+  for(let i=deck.length-1;i>0;i--){
+   const j=Math.floor(Math.random()*(i+1));
+   [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+ }
+
+ const batch=deck.splice(0,10);
+
+ try{
+  localStorage.setItem(storageKey,JSON.stringify(deck));
+ }catch(e){}
+
+ eduQuestions=batch.map(i=>bank[i]);
+ eduIndex=0;
+ eduScore=0;
+ eduAnswered=false;
+
+ hideEduPanels();
+ document.getElementById("eduQuiz").style.display="block";
+ document.getElementById("quizFinish").style.display="none";
+
+ showEduQuestion();
+}
  const bank=questionBank[selectedSubject]||[];
 
  if(bank.length===0){
