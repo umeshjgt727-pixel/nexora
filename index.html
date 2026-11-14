@@ -640,8 +640,15 @@ function answerEdu(index){
 
  buttons.forEach((b,i)=>{
   b.disabled=true;
-  if(i===q.a)b.style.borderColor="#36d98b";
- });
+  if(i===q.a){
+  b.style.borderColor="#36d98b";
+  b.style.background="#123b32";
+}
+
+if(i===index && index!==q.a){
+  b.style.borderColor="#ff4d4f";
+  b.style.background="#3b171b";
+}
 
  if(index===q.a){
   eduScore++;
