@@ -337,7 +337,7 @@ function selectBranch(branch){
  first.onclick=()=>selectSemester("First Year");
  box.appendChild(first);
 
- for(let i=3;i<=6;i++){
+ for(let i=1;i<=6;i++){
   const b=document.createElement("button");
   b.textContent="Semester "+i;
   b.onclick=()=>selectSemester("Semester "+i);
@@ -589,7 +589,7 @@ const questionBank={
   }
  }
 
- const batch=deck.splice(0,10);
+ const batch=deck.splice(0,70);
 
  try{
   localStorage.setItem(storageKey,JSON.stringify(deck));
